@@ -7,18 +7,19 @@ public class MaxAttack {
 	public static void main(String[] args) {
 
 		WarItemStock stock = new WarItemStock();
-		stock.set(WarItem.Plunger, 24);
-		stock.set(WarItem.Anvil, 19);
-		stock.set(WarItem.RubberDuck, 18);
-		stock.set(WarItem.Megaphone, 15);
-		stock.set(WarItem.Gasolline, 14);
-		stock.set(WarItem.Propeller, 13);
-		stock.set(WarItem.Ammo, 11);
-		stock.set(WarItem.Pliers, 11);
-		stock.set(WarItem.RubberBoots, 10);
-		stock.set(WarItem.Binoculars, 9);
-		stock.set(WarItem.FireHydrant, 7);
-		AttackCard[] availableAttacks = AttackCard.AVAILABLE; //ENERGY_EFFICIENT;
+		stock.set(WarItem.Megaphone, 22);
+		stock.set(WarItem.Anvil, 21);
+		stock.set(WarItem.Binoculars, 15);
+		stock.set(WarItem.Propeller, 15);
+		stock.set(WarItem.Ammo, 14);
+		stock.set(WarItem.FireHydrant, 14);
+		stock.set(WarItem.Pliers, 14);
+		stock.set(WarItem.RubberDuck, 14);
+		stock.set(WarItem.Plunger, 13);
+		stock.set(WarItem.Gasolline, 3);
+		stock.set(WarItem.RubberBoots, 1);
+//		AttackCard[] availableAttacks = AttackCard.AVAILABLE;
+		AttackCard[] availableAttacks = AttackCard.ENERGY_EFFICIENT;
 
 		// stock.set(WarItem.Anvil, 2);
 		// stock.set(WarItem.RubberDuck, 2);
