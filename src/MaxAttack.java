@@ -1,78 +1,110 @@
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class MaxAttack {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        WarItemStock stock = new WarItemStock();
-        stock.set(WarItem.Anvil, 19);
-        stock.set(WarItem.RubberDuck, 18);
-        stock.set(WarItem.Plunger, 16);
-        stock.set(WarItem.Ammo, 11);
-        stock.set(WarItem.Gasolline, 11);
-        stock.set(WarItem.RubberBoots, 11);
-        stock.set(WarItem.Megaphone, 12);
-        stock.set(WarItem.Propeller, 10);
-        stock.set(WarItem.Binoculars, 9);
-        stock.set(WarItem.Pliers, 5);
-        stock.set(WarItem.FireHydrant, 4);
+		WarItemStock stock = new WarItemStock();
+		stock.set(WarItem.Plunger, 24);
+		stock.set(WarItem.Anvil, 19);
+		stock.set(WarItem.RubberDuck, 18);
+		stock.set(WarItem.Megaphone, 15);
+		stock.set(WarItem.Gasolline, 14);
+		stock.set(WarItem.Propeller, 13);
+		stock.set(WarItem.Ammo, 11);
+		stock.set(WarItem.Pliers, 11);
+		stock.set(WarItem.RubberBoots, 10);
+		stock.set(WarItem.Binoculars, 9);
+		stock.set(WarItem.FireHydrant, 7);
+		AttackCard[] availableAttacks = AttackCard.AVAILABLE; //ENERGY_EFFICIENT;
 
-        Damage maxDamage = calcMaxDamage(stock, 0);
-        System.out.println("Max Damage: " + maxDamage.damage);
-        System.out.println("Max Points: " + maxDamage.points);
-        System.out.println("Energy cost: " + maxDamage.damage);
-        System.out.print("Cards: ");
-        for (AttackCardQuantity attackCardQuantity : maxDamage.cardQuantities) {
-            System.out.print(attackCardQuantity + ", ");
-        }
-        System.out.println();
+		// stock.set(WarItem.Anvil, 2);
+		// stock.set(WarItem.RubberDuck, 2);
+		// stock.set(WarItem.Plunger, 5);
+		// stock.set(WarItem.Ammo, 0);
+		// stock.set(WarItem.Gasolline, 0);
+		// stock.set(WarItem.RubberBoots, 0);
+		// stock.set(WarItem.Megaphone, 5);
+		// stock.set(WarItem.Propeller, 0);
+		// stock.set(WarItem.Binoculars, 5);
+		// stock.set(WarItem.Pliers, 3);
+		// stock.set(WarItem.FireHydrant, 7);
+		// AttackCard[] availableAttacks = new AttackCard[] { AttackCard.ComicHand,
+		// AttackCard.ShrinkRay, AttackCard.TentacleVortex, AttackCard.SixteenTonns };
 
-        WarItemStock leftover = stock.remove(maxDamage.cost);
-        System.out.println("Initial war items:  " + stock);
-        System.out.println("Used war items:     " + maxDamage.cost);
-        System.out.println("Leftover war items: " + leftover);
-    }
+		Damage maxDamage = calcMaxDamage(availableAttacks, stock, 0);
+		System.out.println("Max Damage: " + maxDamage.damage);
+		System.out.println("Max Points: " + maxDamage.points);
+		System.out.println("Energy cost: " + maxDamage.damage);
+		System.out.print("Cards: ");
+		for (AttackCardQuantity attackCardQuantity : maxDamage.cardQuantities) {
+			System.out.print(attackCardQuantity + ", ");
+		}
+		System.out.println();
 
-    private static Damage calcMaxDamage(WarItemStock stock, int cardIndex) {
+		WarItemStock leftover = stock.remove(maxDamage.cost);
+		System.out.println("Initial war items:  " + stock);
+		System.out.println("Used war items:     " + maxDamage.cost);
+		System.out.println("Leftover war items: " + leftover);
 
-        if (cardIndex == AttackCard.AVAILABLE.length) {
-            return Damage.NONE;
-        }
-        AttackCard attackCard = AttackCard.AVAILABLE[cardIndex];
+		Set<WarItem> notNeededItems = new HashSet<>(Arrays.asList(WarItem.values()));
+		for (WarItem warItem : WarItem.values()) {
+			int itemQuantity = leftover.getQuantity(warItem);
+			for (AttackCard attackCard : AttackCard.AVAILABLE) {
+				int cardItemQuantity = attackCard.warItemQuantities.getQuantity(warItem);
+				if (itemQuantity < cardItemQuantity || itemQuantity < 4) {
+					notNeededItems.remove(warItem);
+					break;
+				}
+			}
+		}
+		System.out.println("Not needed Items: " + notNeededItems);
+	}
 
-        Damage maxDamage = Damage.NONE;
-        for (int numberOfCards = 0; true; ++numberOfCards) {
-            AttackCardQuantity attackCardQuantity = new AttackCardQuantity(attackCard, numberOfCards);
-            WarItemStock newStock = stock.remove(attackCardQuantity);
-            if (newStock == null) {
-                break;
-            }
-            Damage damage = calcMaxDamage(newStock, cardIndex + 1).prepend(attackCardQuantity);
-            maxDamage = max(maxDamage, damage);
-        }
+	private static Damage calcMaxDamage(AttackCard[] availableAttacks, WarItemStock stock, int cardIndex) {
 
-        return maxDamage;
+		if (cardIndex == availableAttacks.length) {
+			return Damage.NONE;
+		}
+		AttackCard attackCard = availableAttacks[cardIndex];
 
-    }
+		Damage maxDamage = Damage.NONE;
+		for (int numberOfCards = 0; true; ++numberOfCards) {
+			AttackCardQuantity attackCardQuantity = new AttackCardQuantity(attackCard, numberOfCards);
+			WarItemStock newStock = stock.remove(attackCardQuantity);
+			if (newStock == null) {
+				break;
+			}
+			Damage damage = calcMaxDamage(availableAttacks, newStock, cardIndex + 1).prepend(attackCardQuantity);
+			maxDamage = max(maxDamage, damage);
+		}
 
-    private static Damage max(Damage damage1, Damage damage2) {
+		return maxDamage;
 
-        if (damage1.points > damage2.points) {
-            return damage1;
-        }
-        if (damage2.points > damage1.points) {
-            return damage2;
-        }
-        if (damage1.damage > damage2.damage) {
-            return damage1;
-        }
-        if (damage2.damage > damage1.damage) {
-            return damage2;
-        }
-        if (damage1.energy < damage2.energy) {
-            return damage1;
-        }
-        if (damage2.energy < damage1.energy) {
-            return damage2;
-        }
-        return damage1;
-    }
+	}
+
+	private static Damage max(Damage damage1, Damage damage2) {
+
+		if (damage1.points > damage2.points) {
+			return damage1;
+		}
+		if (damage2.points > damage1.points) {
+			return damage2;
+		}
+		if (damage1.damage > damage2.damage) {
+			return damage1;
+		}
+		if (damage2.damage > damage1.damage) {
+			return damage2;
+		}
+		if (damage1.energy < damage2.energy) {
+			return damage1;
+		}
+		if (damage2.energy < damage1.energy) {
+			return damage2;
+		}
+		return damage1;
+	}
 }

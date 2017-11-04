@@ -71,4 +71,8 @@ public class WarItemStock {
             return sb.toString();
         }
     }
+
+	public int getQuantity(WarItem warItem) {
+		return quantities[warItem.ordinal()];
+	}
 }
