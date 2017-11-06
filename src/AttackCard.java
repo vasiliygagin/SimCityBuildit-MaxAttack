@@ -3,7 +3,7 @@ import java.util.List;
 
 public enum AttackCard {
 
-	ComicHand(1, 1, 110, new WarItemQuantity(WarItem.Plunger, 1), new WarItemQuantity(WarItem.RubberDuck, 1)), //
+	ComicHand(1, 1, 120, new WarItemQuantity(WarItem.Plunger, 1), new WarItemQuantity(WarItem.RubberDuck, 1)), //
 	ShrinkRay(3, 3, 300, new WarItemQuantity(WarItem.Pliers, 1), new WarItemQuantity(WarItem.Megaphone, 2)), //
 	GiantRockMonster(2, 2, 200, new WarItemQuantity(WarItem.FireHydrant, 1),
 			new WarItemQuantity(WarItem.Binoculars, 1)), //
