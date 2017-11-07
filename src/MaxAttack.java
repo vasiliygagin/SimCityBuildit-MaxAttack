@@ -10,33 +10,37 @@ public class MaxAttack {
     public static void main(String[] args) {
 
         WarItemStock stock = new WarItemStock();
-        stock.set(WarItem.Ammo, 21);
-        stock.set(WarItem.Anvil, 20);
-        stock.set(WarItem.RubberDuck, 14);
-        stock.set(WarItem.RubberBoots, 10);
-        stock.set(WarItem.Megaphone, 9);
-        stock.set(WarItem.Binoculars, 8);
-        stock.set(WarItem.Pliers, 7);
-        stock.set(WarItem.Gasolline, 6);
-        stock.set(WarItem.Plunger, 5);
-        stock.set(WarItem.Propeller, 5);
-        stock.set(WarItem.FireHydrant, 2);
-        // AttackCard[] availableAttacks = AttackCard.AVAILABLE;
-        AttackCard[] availableAttacks = AttackCard.ENERGY_EFFICIENT;
-
-        // stock.set(WarItem.Anvil, 2);
-        // stock.set(WarItem.RubberDuck, 2);
-        // stock.set(WarItem.Plunger, 5);
-        // stock.set(WarItem.Ammo, 0);
-        // stock.set(WarItem.Gasolline, 0);
-        // stock.set(WarItem.RubberBoots, 0);
-        // stock.set(WarItem.Megaphone, 5);
-        // stock.set(WarItem.Propeller, 0);
-        // stock.set(WarItem.Binoculars, 5);
-        // stock.set(WarItem.Pliers, 3);
-        // stock.set(WarItem.FireHydrant, 7);
-        // AttackCard[] availableAttacks = new AttackCard[] { AttackCard.ComicHand,
-        // AttackCard.ShrinkRay, AttackCard.TentacleVortex, AttackCard.SixteenTonns };
+        AttackCard[] availableAttacks;
+        boolean vasiliy = true;
+        if (vasiliy) {
+            availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.GiantRockMonster, AttackCard.TentacleVortex,
+                    AttackCard.PlantMonster };
+            availableAttacks = AttackCard.filterEnergyEfficient(availableAttacks);
+            stock.set(WarItem.Ammo, 21);
+            stock.set(WarItem.Anvil, 20);
+            stock.set(WarItem.RubberDuck, 15);
+            stock.set(WarItem.RubberBoots, 10);
+            stock.set(WarItem.Megaphone, 9);
+            stock.set(WarItem.Binoculars, 8);
+            stock.set(WarItem.Pliers, 7);
+            stock.set(WarItem.Gasolline, 6);
+            stock.set(WarItem.Plunger, 5);
+            stock.set(WarItem.Propeller, 5);
+            stock.set(WarItem.FireHydrant, 2);
+        } else {
+            availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.TentacleVortex, AttackCard.SixteenTonns };
+            stock.set(WarItem.FireHydrant, 7);
+            stock.set(WarItem.Binoculars, 5);
+            stock.set(WarItem.Plunger, 5);
+            stock.set(WarItem.Anvil, 2);
+            stock.set(WarItem.RubberDuck, 2);
+            stock.set(WarItem.Ammo, 0);
+            stock.set(WarItem.Gasolline, 0);
+            stock.set(WarItem.RubberBoots, 0);
+            stock.set(WarItem.Megaphone, 1);
+            stock.set(WarItem.Propeller, 0);
+            stock.set(WarItem.Pliers, 2);
+        }
 
         int maxEnergy = Integer.MAX_VALUE;
         Damage maxDamage = calcMaxDamage(availableAttacks, stock, 0, maxEnergy);
@@ -57,7 +61,7 @@ public class MaxAttack {
         Set<WarItem> notNeededItems = new HashSet<>(Arrays.asList(WarItem.values()));
         for (WarItem warItem : WarItem.values()) {
             int itemQuantity = leftover.getQuantity(warItem);
-            for (AttackCard attackCard : AttackCard.AVAILABLE) {
+            for (AttackCard attackCard : availableAttacks) {
                 int cardItemQuantity = attackCard.warItemQuantities.getQuantity(warItem);
                 if (itemQuantity < cardItemQuantity || itemQuantity < 4) {
                     notNeededItems.remove(warItem);
@@ -86,7 +90,8 @@ public class MaxAttack {
                 for (AttackCardQuantity attackCardQuantity : limitedDamage.cardQuantities) {
                     cardQuantities.put(attackCardQuantity.attackCard, attackCardQuantity.quantity);
                 }
-                formatter.format("%3d %5d %3d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d\n", limitedDamage.damage, limitedDamage.points, limitedDamage.energy, //
+                formatter.format("%3d %5d %3d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d\n", limitedDamage.damage, limitedDamage.points,
+                        limitedDamage.energy, //
                         cardQuantities.get(AttackCard.ComicHand), //
                         cardQuantities.get(AttackCard.ShrinkRay), //
                         cardQuantities.get(AttackCard.GiantRockMonster), //
