@@ -17,20 +17,19 @@ public class MaxAttack {
                     AttackCard.PlantMonster };
             availableAttacks = AttackCard.filterEnergyEfficient(availableAttacks);
 
-            stock.set(WarItem.Ammo, 21);
-            stock.set(WarItem.Anvil, 20);
-            stock.set(WarItem.RubberDuck, 15);
+            stock.set(WarItem.Ammo, 23);
+            stock.set(WarItem.Anvil, 21);
+            stock.set(WarItem.Propeller, 9);
+            stock.set(WarItem.RubberDuck, 8);
+            stock.set(WarItem.Binoculars, 5);
 
-            stock.set(WarItem.Megaphone, 13);
-            stock.set(WarItem.RubberBoots, 10);
             stock.set(WarItem.Gasolline, 9);
+            stock.set(WarItem.RubberBoots, 6);
+            stock.set(WarItem.Plunger, 3);
+            stock.set(WarItem.Pliers, 7);
+            stock.set(WarItem.FireHydrant, 3);
+            stock.set(WarItem.Megaphone, 7);
 
-            stock.set(WarItem.Pliers, 9);
-            stock.set(WarItem.Binoculars, 8);
-            stock.set(WarItem.Plunger, 7);
-
-            stock.set(WarItem.Propeller, 5);
-            stock.set(WarItem.FireHydrant, 2);
         } else {
             availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.TentacleVortex, AttackCard.SixteenTonns };
             stock.set(WarItem.FireHydrant, 7);
@@ -70,18 +69,18 @@ public class MaxAttack {
         System.out.println("Used war items:     " + maxDamage.cost);
         System.out.println("Leftover war items: " + leftover);
 
-        Set<WarItem> notNeededItems = new HashSet<>(Arrays.asList(WarItem.values()));
+        Set<WarItem> neededItems = new HashSet<>();
         for (WarItem warItem : WarItem.values()) {
             int itemQuantity = leftover.getQuantity(warItem);
             for (AttackCard attackCard : availableAttacks) {
                 int cardItemQuantity = attackCard.warItemQuantities.getQuantity(warItem);
                 if (itemQuantity < cardItemQuantity || itemQuantity < 4) {
-                    notNeededItems.remove(warItem);
+                    neededItems.add(warItem);
                     break;
                 }
             }
         }
-        System.out.println("Not needed Items: " + notNeededItems);
+        System.out.println("Needed Items: " + neededItems);
 
         evaluateLimitedEnergyScenario(stock, availableAttacks, maxDamage);
     }
