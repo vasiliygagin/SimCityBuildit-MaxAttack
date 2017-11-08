@@ -1,4 +1,3 @@
-import java.io.PrintStream;
 import java.util.Formatter;
 
 public class WarItemStock {
@@ -18,9 +17,15 @@ public class WarItemStock {
 
     public WarItemStock remove(AttackCardQuantity attackCardQuantity) {
 
-        WarItemStock warItemQuantities = attackCardQuantity.attackCard.warItemQuantities;
+        AttackCard attackCard = attackCardQuantity.attackCard;
         int numberOfCards = attackCardQuantity.quantity;
 
+        return remove(attackCard, numberOfCards);
+    }
+
+    public WarItemStock remove(AttackCard attackCard, int numberOfCards) {
+
+        WarItemStock warItemQuantities = attackCard.warItemQuantities;
         WarItemStock newStock = new WarItemStock(this);
         for (int i = 0; i < quantities.length; ++i) {
             int leftover = quantities[i] - warItemQuantities.quantities[i] * numberOfCards;
@@ -34,8 +39,14 @@ public class WarItemStock {
 
     public void add(AttackCardQuantity cardQuantity) {
 
-        WarItemStock cardWarItemQuantities = cardQuantity.attackCard.warItemQuantities;
+        AttackCard attackCard = cardQuantity.attackCard;
         int numberOfCards = cardQuantity.quantity;
+        add(attackCard, numberOfCards);
+    }
+
+    public void add(AttackCard attackCard, int numberOfCards) {
+
+        WarItemStock cardWarItemQuantities = attackCard.warItemQuantities;
         for (int i = 0; i < quantities.length; ++i) {
             quantities[i] += cardWarItemQuantities.quantities[i] * numberOfCards;
         }
@@ -72,7 +83,7 @@ public class WarItemStock {
         }
     }
 
-	public int getQuantity(WarItem warItem) {
-		return quantities[warItem.ordinal()];
-	}
+    public int getQuantity(WarItem warItem) {
+        return quantities[warItem.ordinal()];
+    }
 }
