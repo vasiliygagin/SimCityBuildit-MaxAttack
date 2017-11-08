@@ -16,17 +16,20 @@ public class MaxAttack {
             availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.GiantRockMonster, AttackCard.TentacleVortex,
                     AttackCard.PlantMonster };
             availableAttacks = AttackCard.filterEnergyEfficient(availableAttacks);
+
             stock.set(WarItem.Ammo, 21);
             stock.set(WarItem.Anvil, 20);
-            stock.set(WarItem.RubberDuck, 15);
-            stock.set(WarItem.RubberBoots, 10);
-            stock.set(WarItem.Megaphone, 9);
+            stock.set(WarItem.RubberDuck, 11);
             stock.set(WarItem.Binoculars, 8);
-            stock.set(WarItem.Pliers, 7);
-            stock.set(WarItem.Gasolline, 6);
-            stock.set(WarItem.Plunger, 5);
-            stock.set(WarItem.Propeller, 5);
-            stock.set(WarItem.FireHydrant, 2);
+            stock.set(WarItem.Propeller, 6);
+
+            stock.set(WarItem.RubberBoots, 13);
+            stock.set(WarItem.Megaphone, 4);
+            stock.set(WarItem.Gasolline, 16);
+            stock.set(WarItem.Pliers, 5);
+            stock.set(WarItem.Plunger, 8);
+            stock.set(WarItem.FireHydrant, 5);
+
         } else {
             availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.TentacleVortex, AttackCard.SixteenTonns };
             stock.set(WarItem.FireHydrant, 7);
