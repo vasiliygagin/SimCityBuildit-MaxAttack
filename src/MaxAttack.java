@@ -27,7 +27,7 @@ public class MaxAttack {
             stock.set(WarItem.Gasolline, 9);
             stock.set(WarItem.RubberBoots, 8);
             stock.set(WarItem.Plunger, 4);
-            stock.set(WarItem.Pliers, 13);
+            stock.set(WarItem.Pliers, 14);
             stock.set(WarItem.FireHydrant, 2);
 
         } else {
