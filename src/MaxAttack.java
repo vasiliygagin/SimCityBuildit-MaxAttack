@@ -20,15 +20,15 @@ public class MaxAttack {
             stock.set(WarItem.Ammo, 23);
             stock.set(WarItem.Anvil, 21);
             stock.set(WarItem.Propeller, 9);
-            stock.set(WarItem.RubberDuck, 8);
-            stock.set(WarItem.Binoculars, 5);
+            stock.set(WarItem.RubberDuck, 7);
+            stock.set(WarItem.Binoculars, 6);
 
             stock.set(WarItem.Gasolline, 9);
-            stock.set(WarItem.RubberBoots, 6);
-            stock.set(WarItem.Plunger, 3);
-            stock.set(WarItem.Pliers, 7);
-            stock.set(WarItem.FireHydrant, 3);
-            stock.set(WarItem.Megaphone, 7);
+            stock.set(WarItem.RubberBoots, 8);
+            stock.set(WarItem.Plunger, 4);
+            stock.set(WarItem.Pliers, 11);
+            stock.set(WarItem.FireHydrant, 2);
+            stock.set(WarItem.Megaphone, 16);
 
         } else {
             availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.TentacleVortex, AttackCard.SixteenTonns };
