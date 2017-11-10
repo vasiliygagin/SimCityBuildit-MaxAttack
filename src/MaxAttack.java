@@ -11,7 +11,7 @@ public class MaxAttack {
 
         WarItemStock stock = new WarItemStock();
         AttackCard[] availableAttacks;
-        boolean vasiliy = true;
+        boolean vasiliy = false;
         if (vasiliy) {
             availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.GiantRockMonster, AttackCard.TentacleVortex,
                     AttackCard.PlantMonster };
@@ -31,12 +31,13 @@ public class MaxAttack {
             stock.set(WarItem.FireHydrant, 2);
 
         } else {
-            availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.TentacleVortex, AttackCard.SixteenTonns };
+            availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.TentacleVortex, AttackCard.PlantMonster,
+                    AttackCard.SixteenTonns };
             stock.set(WarItem.FireHydrant, 7);
             stock.set(WarItem.Binoculars, 5);
-            stock.set(WarItem.Plunger, 5);
+            stock.set(WarItem.Plunger, 3);
             stock.set(WarItem.Anvil, 3);
-            stock.set(WarItem.RubberDuck, 2);
+            stock.set(WarItem.RubberDuck, 0);
             stock.set(WarItem.Ammo, 0);
             stock.set(WarItem.Gasolline, 0);
             stock.set(WarItem.RubberBoots, 0);
@@ -46,11 +47,11 @@ public class MaxAttack {
         }
 
         int maxEnergy = Integer.MAX_VALUE;
-         Damage maxDamage = calcMaxDamage(availableAttacks, stock, 0, maxEnergy);
+        Damage maxDamage = calcMaxDamage(availableAttacks, stock, 0, maxEnergy);
 
-//        WarItemStock leftoverStock = stock.remove(AttackCard.ComicHand, 5);
-//        Damage maxDamage = calcMaxDamage(availableAttacks, leftoverStock, 0, maxEnergy);
-//        maxDamage = new Damage(maxDamage, AttackCard.ComicHand, 5);
+        // WarItemStock leftoverStock = stock.remove(AttackCard.ComicHand, 5);
+        // Damage maxDamage = calcMaxDamage(availableAttacks, leftoverStock, 0, maxEnergy);
+        // maxDamage = new Damage(maxDamage, AttackCard.ComicHand, 5);
 
         System.out.println("Max Damage: " + maxDamage.damage);
         System.out.println("Max Points: " + maxDamage.points);
@@ -74,7 +75,7 @@ public class MaxAttack {
             int itemQuantity = leftover.getQuantity(warItem);
             for (AttackCard attackCard : availableAttacks) {
                 int cardItemQuantity = attackCard.warItemQuantities.getQuantity(warItem);
-                if (itemQuantity < cardItemQuantity || itemQuantity < 4) {
+                if (itemQuantity > 0 && (itemQuantity < cardItemQuantity || itemQuantity < 4)) {
                     neededItems.add(warItem);
                     break;
                 }
