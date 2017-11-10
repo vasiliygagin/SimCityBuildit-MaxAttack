@@ -35,15 +35,15 @@ public class MaxAttack {
                     AttackCard.SixteenTonns };
             stock.set(WarItem.FireHydrant, 7);
             stock.set(WarItem.Binoculars, 5);
+            stock.set(WarItem.Anvil, 4);
             stock.set(WarItem.Plunger, 3);
-            stock.set(WarItem.Anvil, 3);
-            stock.set(WarItem.RubberDuck, 0);
+            stock.set(WarItem.RubberDuck, 1);
             stock.set(WarItem.Ammo, 0);
             stock.set(WarItem.Gasolline, 0);
-            stock.set(WarItem.RubberBoots, 0);
-            stock.set(WarItem.Megaphone, 1);
+            stock.set(WarItem.RubberBoots, 1);
+            stock.set(WarItem.Megaphone, 2);
             stock.set(WarItem.Propeller, 0);
-            stock.set(WarItem.Pliers, 3);
+            stock.set(WarItem.Pliers, 4);
         }
 
         int maxEnergy = Integer.MAX_VALUE;
@@ -75,7 +75,7 @@ public class MaxAttack {
             int itemQuantity = leftover.getQuantity(warItem);
             for (AttackCard attackCard : availableAttacks) {
                 int cardItemQuantity = attackCard.warItemQuantities.getQuantity(warItem);
-                if (itemQuantity > 0 && (itemQuantity < cardItemQuantity || itemQuantity < 4)) {
+                if (cardItemQuantity > 0 && (itemQuantity < cardItemQuantity || itemQuantity < 4)) {
                     neededItems.add(warItem);
                     break;
                 }
