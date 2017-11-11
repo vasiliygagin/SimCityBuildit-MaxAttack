@@ -23,11 +23,11 @@ public class MaxAttack {
             stock.set(WarItem.RubberDuck, 7);
             stock.set(WarItem.Binoculars, 6);
 
-            stock.set(WarItem.Megaphone, 20);
+            stock.set(WarItem.Megaphone, 22);
+            stock.set(WarItem.Pliers, 14);
             stock.set(WarItem.Gasolline, 9);
             stock.set(WarItem.RubberBoots, 8);
-            stock.set(WarItem.Plunger, 4);
-            stock.set(WarItem.Pliers, 14);
+            stock.set(WarItem.Plunger, 5);
             stock.set(WarItem.FireHydrant, 2);
 
         } else {
@@ -35,14 +35,14 @@ public class MaxAttack {
             stock.set(WarItem.FireHydrant, 7);
             stock.set(WarItem.Binoculars, 5);
             stock.set(WarItem.Plunger, 5);
-            stock.set(WarItem.Anvil, 3);
+            stock.set(WarItem.Anvil, 4);
             stock.set(WarItem.RubberDuck, 2);
             stock.set(WarItem.Ammo, 0);
             stock.set(WarItem.Gasolline, 0);
-            stock.set(WarItem.RubberBoots, 0);
-            stock.set(WarItem.Megaphone, 1);
+            stock.set(WarItem.RubberBoots, 1);
+            stock.set(WarItem.Megaphone, 2);
             stock.set(WarItem.Propeller, 0);
-            stock.set(WarItem.Pliers, 3);
+            stock.set(WarItem.Pliers, 4);
         }
 
         int maxEnergy = Integer.MAX_VALUE;
