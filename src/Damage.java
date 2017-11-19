@@ -25,4 +25,16 @@ public class Damage {
         this.cost = new WarItemStock(startDamage.cost);
         this.cost.add(attackCard, numberOfCards);
     }   
+
+    public Damage(Damage damage1, Damage damage2) {
+    	
+        damage = damage1.damage + damage2.damage;
+        points = damage1.points + damage2.points;
+        energy = damage1.energy + damage2.energy;
+        for (int i = 0; i < cardQuantities.length; ++i) {
+        	cardQuantities[i] = damage1.cardQuantities[i] + damage2.cardQuantities[i];
+        }
+        cost = new WarItemStock(damage1.cost);
+        cost.add(damage2.cost);
+    }
 }

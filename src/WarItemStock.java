@@ -52,6 +52,12 @@ public class WarItemStock {
         }
     }
 
+    public void add(WarItemStock stock) {
+
+        for (int i = 0; i < quantities.length; ++i) {
+            quantities[i] += stock.quantities[i];
+        }
+    }
     public WarItemStock remove(WarItemStock cost) {
 
         WarItemStock newStock = new WarItemStock(this);
