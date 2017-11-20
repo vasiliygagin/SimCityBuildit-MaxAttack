@@ -20,31 +20,32 @@ public class MaxAttack {
 		boolean vasiliy = true;
 		if (vasiliy) {
 			availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay,
-					AttackCard.GiantRockMonster, AttackCard.TentacleVortex, AttackCard.PlantMonster };
+					AttackCard.GiantRockMonster, AttackCard.TentacleVortex, AttackCard.FlyingVuRobot,
+					AttackCard.PlantMonster, AttackCard.SixteenTons };
 			availableAttacks = AttackCard.filterEnergyEfficient(availableAttacks);
 
-			endOfWar = parse("11/19/2017 17:00");
+			endOfWar = null; //parse("11/19/2017 17:00");
 			energySnapshot = parse("11/19/2017 14:05").getTime();
 			currentEnergy = 4;
 
 			stock.set(WarItem.Ammo, 22);
 			stock.set(WarItem.Anvil, 21);
-			stock.set(WarItem.Propeller, 9);
+			stock.set(WarItem.Propeller, 10);
 
-			stock.set(WarItem.Megaphone, 20);
-			stock.set(WarItem.Pliers, 17);
+			stock.set(WarItem.Megaphone, 13);
+			stock.set(WarItem.Pliers, 13);
 
-			stock.set(WarItem.RubberBoots, 13);
-			stock.set(WarItem.Plunger, 12);
-			stock.set(WarItem.Gasolline, 15);
+			stock.set(WarItem.RubberBoots, 14);
+			stock.set(WarItem.Plunger, 14);
+			stock.set(WarItem.Gasolline, 16);
 			stock.set(WarItem.RubberDuck, 4);
 
 			stock.set(WarItem.Binoculars, 11);
-			stock.set(WarItem.FireHydrant, 6);
+			stock.set(WarItem.FireHydrant, 7);
 
 		} else {
 			availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.TentacleVortex,
-					AttackCard.PlantMonster, AttackCard.SixteenTonns };
+					AttackCard.PlantMonster, AttackCard.SixteenTons };
 			stock.set(WarItem.FireHydrant, 6);
 			stock.set(WarItem.Binoculars, 5);
 			stock.set(WarItem.Anvil, 1);
@@ -63,9 +64,9 @@ public class MaxAttack {
 			long x3Millis = endOfWar.getTime() - (2 * 60 * 60 * 1000);
 			int energyToGenerate;
 			if (energySnapshot < x3Millis) {
-				energyToGenerate = (int)((x3Millis - energySnapshot) / (15 * 60 * 1000) + 24);
+				energyToGenerate = (int) ((x3Millis - energySnapshot) / (15 * 60 * 1000) + 24);
 			} else {
-				energyToGenerate = (int)((endOfWar.getTime() - energySnapshot) / (5 * 60 * 1000) + 24);
+				energyToGenerate = (int) ((endOfWar.getTime() - energySnapshot) / (5 * 60 * 1000) + 24);
 			}
 			System.out.println(energyToGenerate);
 			maxEnergy = energyToGenerate + currentEnergy;
@@ -209,7 +210,7 @@ public class MaxAttack {
 					cardQuantities.get(AttackCard.PlantMonster), //
 					cardQuantities.get(AttackCard.Fishaster), //
 					cardQuantities.get(AttackCard.AncientCurse), //
-					cardQuantities.get(AttackCard.SixteenTonns), //
+					cardQuantities.get(AttackCard.SixteenTons), //
 					cardQuantities.get(AttackCard.Spiders) //
 			);
 		}

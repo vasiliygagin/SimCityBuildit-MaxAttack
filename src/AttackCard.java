@@ -18,7 +18,7 @@ public enum AttackCard {
             new WarItemQuantity(WarItem.FireHydrant, 3)), //
     AncientCurse(8, 8, 800, new WarItemQuantity(WarItem.RubberBoots, 1), new WarItemQuantity(WarItem.Megaphone, 2),
             new WarItemQuantity(WarItem.Binoculars, 3)), //
-    SixteenTonns(6, 6, 600, new WarItemQuantity(WarItem.Pliers, 1), new WarItemQuantity(WarItem.FireHydrant, 1),
+    SixteenTons(6, 6, 600, new WarItemQuantity(WarItem.Pliers, 1), new WarItemQuantity(WarItem.FireHydrant, 1),
             new WarItemQuantity(WarItem.Anvil, 4)), //
     Spiders(9, 9, 900, new WarItemQuantity(WarItem.Gasolline, 1), new WarItemQuantity(WarItem.Binoculars, 2), new WarItemQuantity(WarItem.Ammo, 5));
 
