@@ -11,45 +11,43 @@ public class MaxAttack {
 
 	public static void main(String[] args) throws Exception {
 
-		Date endOfWar = null;
-		long energySnapshot = 0;
-		int currentEnergy = 0;
-
 		WarItemStock stock = new WarItemStock();
 		AttackCard[] availableAttacks;
+		boolean useOnlyEnergyEfficientCards;
+		int usedEnergy;
+
+		Date warStart = parse("11/25/2017 05:00");
+		Energy energy = new Energy(warStart);
 		boolean vasiliy = true;
 		if (vasiliy) {
 			availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay,
 					AttackCard.GiantRockMonster, AttackCard.TentacleVortex, AttackCard.FlyingVuRobot,
-					AttackCard.PlantMonster, AttackCard.SixteenTons };
-			availableAttacks = AttackCard.filterEnergyEfficient(availableAttacks);
-
-			endOfWar = null; //parse("11/19/2017 17:00");
-			energySnapshot = parse("11/19/2017 14:05").getTime();
-			currentEnergy = 4;
-
-			stock.set(WarItem.Ammo, 22);
-			stock.set(WarItem.Anvil, 21);
-			stock.set(WarItem.Propeller, 10);
-
-			stock.set(WarItem.Megaphone, 13);
-			stock.set(WarItem.Pliers, 13);
-
-			stock.set(WarItem.RubberBoots, 14);
-			stock.set(WarItem.Plunger, 14);
-			stock.set(WarItem.Gasolline, 16);
-			stock.set(WarItem.RubberDuck, 4);
+					AttackCard.DiscoTwister, AttackCard.PlantMonster, AttackCard.SixteenTons };
+			useOnlyEnergyEfficientCards = true;
 
 			stock.set(WarItem.Binoculars, 11);
-			stock.set(WarItem.FireHydrant, 7);
+			stock.set(WarItem.RubberBoots, 16);
+			stock.set(WarItem.Propeller, 6);
 
+			stock.set(WarItem.Megaphone, 23);
+			stock.set(WarItem.Pliers, 14);
+			stock.set(WarItem.Ammo, 9);
+			stock.set(WarItem.Anvil, 15);
+			stock.set(WarItem.Gasolline, 8);
+			stock.set(WarItem.Plunger, 7);
+			stock.set(WarItem.RubberDuck, 1);
+			stock.set(WarItem.FireHydrant, 6);
+
+			usedEnergy = 127;
 		} else {
 			availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.TentacleVortex,
 					AttackCard.PlantMonster, AttackCard.SixteenTons };
+			useOnlyEnergyEfficientCards = false;
+
 			stock.set(WarItem.FireHydrant, 6);
 			stock.set(WarItem.Binoculars, 5);
 			stock.set(WarItem.Anvil, 1);
-			stock.set(WarItem.Pliers, 2);
+			stock.set(WarItem.Pliers, 19);
 			stock.set(WarItem.Plunger, 4);
 			stock.set(WarItem.Megaphone, 1);
 			stock.set(WarItem.RubberDuck, 3);
@@ -57,61 +55,53 @@ public class MaxAttack {
 			stock.set(WarItem.Ammo, 0);
 			stock.set(WarItem.Gasolline, 0);
 			stock.set(WarItem.Propeller, 0);
+
+			usedEnergy = 42;
 		}
 
-		int maxEnergy = Integer.MAX_VALUE;
-		if (endOfWar != null) {
-			long x3Millis = endOfWar.getTime() - (2 * 60 * 60 * 1000);
-			int energyToGenerate;
-			if (energySnapshot < x3Millis) {
-				energyToGenerate = (int) ((x3Millis - energySnapshot) / (15 * 60 * 1000) + 24);
-			} else {
-				energyToGenerate = (int) ((endOfWar.getTime() - energySnapshot) / (5 * 60 * 1000) + 24);
-			}
-			System.out.println(energyToGenerate);
-			maxEnergy = energyToGenerate + currentEnergy;
-		}
+		int currentEnergy = energy.getGeneratedEnergy() - usedEnergy;
+		int maxEnergy = energy.getFutureEnergy() + currentEnergy;
+		System.out.println("Current energy: " + currentEnergy);
+		System.out.println("    Max energy: " + maxEnergy);
+
+		AttackCard[] energyEfficientCards = AttackCard.filterEnergyEfficient(availableAttacks);
+		AttackCard[] cardsToUse = useOnlyEnergyEfficientCards ? energyEfficientCards : availableAttacks;
 
 		System.out.println("                  " + consiseDamageHeader());
 		System.out.println(
 				"Initial war items:                                                    " + consiseWarItemStock(stock));
-		Damage maxDamage = calcMaxDamage(availableAttacks, stock, 0, maxEnergy);
+		Damage maxDamage = calcMaxDamage(availableAttacks, stock, 0, Integer.MAX_VALUE);
 		System.out.println("Unlimited energy: " + consiseDamageReport(maxDamage));
+		Damage maxEfficientDamage = calcMaxDamage(energyEfficientCards, stock, 0, Integer.MAX_VALUE);
+		System.out.println("Unlimited Effici: " + consiseDamageReport(maxEfficientDamage));
 
-		WarItemStock leftover = stock.remove(maxDamage.cost);
-		System.out.println("Leftover war items:                                                   "
-				+ consiseWarItemStock(leftover));
+		// Damage efficientDamage = maxDamage;
+		// while (efficientDamage.energy > efficientDamage.damage) {
+		// efficientDamage = calcMaxDamage(cardsToUse, stock, 0, efficientDamage.energy
+		// - 1);
+		// }
+		Damage efficientDamage = calcMaxDamage(cardsToUse, stock, 0, maxEnergy);
 
-		analyzeEfficientEnenrgy(stock, availableAttacks, maxDamage);
-
-		int maxUsableEnergy = analyseLimitedEnerg(stock, availableAttacks, maxDamage);
-
-		evaluateLimitedEnergyScenario(stock, availableAttacks, maxUsableEnergy);
-	}
-
-	private static Date parse(String source) throws ParseException {
-		return new SimpleDateFormat("MM/dd/yyyy hh:mm").parse(source);
-	}
-
-	private static void analyzeEfficientEnenrgy(WarItemStock stock, AttackCard[] availableAttacks, Damage maxDamage) {
-		Damage efficientDamage = maxDamage;
-		while (efficientDamage.energy > efficientDamage.damage) {
-			efficientDamage = calcMaxDamage(availableAttacks, stock, 0, efficientDamage.energy - 1);
-		}
-
-		Damage leftoverDamage = calcMaxDamage(availableAttacks, stock.remove(efficientDamage.cost), 0,
-				Integer.MAX_VALUE);
+		WarItemStock leftoverItems = stock.remove(efficientDamage.cost);
+		Damage leftoverDamage = calcMaxDamage(availableAttacks, leftoverItems, 0, maxEnergy - efficientDamage.energy);
 
 		Damage totalDamage = new Damage(efficientDamage, leftoverDamage);
-		System.out.println("                  " + consiseDamageHeader());
-		System.out.println("Efficient energy: " + consiseDamageReport(efficientDamage));
+		System.out.println("Available energy: " + consiseDamageReport(efficientDamage));
 		System.out.println("Leftover items:   " + consiseDamageReport(leftoverDamage));
 		System.out.println("Total damage:     " + consiseDamageReport(totalDamage));
 
 		WarItemStock leftoverStock = stock.remove(totalDamage.cost);
 		System.out.println("Leftover war items:                                                   "
 				+ consiseWarItemStock(leftoverStock));
-		printNeededItems(leftoverStock, availableAttacks);
+		printNeededItems(leftoverStock, cardsToUse);
+
+		int maxUsableEnergy = analyseLimitedEnerg(stock, cardsToUse, maxDamage);
+
+		evaluateLimitedEnergyScenario(stock, cardsToUse, maxUsableEnergy);
+	}
+
+	private static Date parse(String source) throws ParseException {
+		return new SimpleDateFormat("MM/dd/yyyy hh:mm").parse(source);
 	}
 
 	private static int analyseLimitedEnerg(WarItemStock stock, AttackCard[] availableAttacks, Damage maxDamage) {
