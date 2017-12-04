@@ -3,7 +3,7 @@ import java.util.List;
 
 public enum AttackCard {
 
-    ComicHand(1, 1, 120, new WarItemQuantity(WarItem.Plunger, 1), new WarItemQuantity(WarItem.RubberDuck, 1)), //
+    ComicHand(1, 1, 130, new WarItemQuantity(WarItem.Plunger, 1), new WarItemQuantity(WarItem.RubberDuck, 1)), //
     ShrinkRay(3, 3, 300, new WarItemQuantity(WarItem.Pliers, 1), new WarItemQuantity(WarItem.Megaphone, 2)), //
     GiantRockMonster(2, 2, 200, new WarItemQuantity(WarItem.FireHydrant, 1), new WarItemQuantity(WarItem.Binoculars, 1)), //
     NotInKansas(3, 4, 300, new WarItemQuantity(WarItem.Anvil, 1), new WarItemQuantity(WarItem.Propeller, 1)), //
@@ -18,7 +18,7 @@ public enum AttackCard {
             new WarItemQuantity(WarItem.FireHydrant, 3)), //
     AncientCurse(8, 8, 800, new WarItemQuantity(WarItem.RubberBoots, 1), new WarItemQuantity(WarItem.Megaphone, 2),
             new WarItemQuantity(WarItem.Binoculars, 3)), //
-    SixteenTons(6, 6, 600, new WarItemQuantity(WarItem.Pliers, 1), new WarItemQuantity(WarItem.FireHydrant, 2),
+    SixteenTons(6, 6, 660, new WarItemQuantity(WarItem.Pliers, 1), new WarItemQuantity(WarItem.FireHydrant, 2),
             new WarItemQuantity(WarItem.Anvil, 4)), //
     Spiders(9, 9, 900, new WarItemQuantity(WarItem.Gasolline, 1), new WarItemQuantity(WarItem.Binoculars, 2), new WarItemQuantity(WarItem.Ammo, 5));
 

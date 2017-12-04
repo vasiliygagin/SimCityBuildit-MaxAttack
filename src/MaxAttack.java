@@ -16,8 +16,7 @@ public class MaxAttack {
 		boolean useOnlyEnergyEfficientCards;
 		int usedEnergy;
 
-		Date warStart = parse("11/25/2017 05:00");
-		Energy energy = new Energy(warStart);
+		Date warStart;
 		boolean vasiliy = true;
 		if (vasiliy) {
 			availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay,
@@ -25,24 +24,28 @@ public class MaxAttack {
 					AttackCard.DiscoTwister, AttackCard.PlantMonster, AttackCard.SixteenTons };
 			useOnlyEnergyEfficientCards = true;
 
-			stock.set(WarItem.Binoculars, 11);
-			stock.set(WarItem.RubberBoots, 16);
-			stock.set(WarItem.Propeller, 6);
+			warStart = parse("12/02/2017 05:37");
+			usedEnergy = 0;
 
-			stock.set(WarItem.Megaphone, 23);
-			stock.set(WarItem.Pliers, 14);
-			stock.set(WarItem.Ammo, 9);
-			stock.set(WarItem.Anvil, 15);
-			stock.set(WarItem.Gasolline, 8);
-			stock.set(WarItem.Plunger, 7);
-			stock.set(WarItem.RubberDuck, 1);
-			stock.set(WarItem.FireHydrant, 6);
+			stock.set(WarItem.RubberBoots, 20);
+			stock.set(WarItem.Megaphone, 17);
+			stock.set(WarItem.Anvil, 16);
+			stock.set(WarItem.Pliers, 15);
+			stock.set(WarItem.Binoculars, 14);
+			stock.set(WarItem.FireHydrant, 10);
+			stock.set(WarItem.Propeller, 10);
+			stock.set(WarItem.Ammo, 8);
+			stock.set(WarItem.Gasolline, 6);
+			stock.set(WarItem.RubberDuck, 6);
+			stock.set(WarItem.Plunger, 3);
 
-			usedEnergy = 127;
 		} else {
 			availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.TentacleVortex,
 					AttackCard.PlantMonster, AttackCard.SixteenTons };
 			useOnlyEnergyEfficientCards = false;
+
+			warStart = parse("12/02/2017 05:37");
+			usedEnergy = 42;
 
 			stock.set(WarItem.FireHydrant, 6);
 			stock.set(WarItem.Binoculars, 5);
@@ -56,9 +59,9 @@ public class MaxAttack {
 			stock.set(WarItem.Gasolline, 0);
 			stock.set(WarItem.Propeller, 0);
 
-			usedEnergy = 42;
 		}
 
+		Energy energy = new Energy(warStart);
 		int currentEnergy = energy.getGeneratedEnergy() - usedEnergy;
 		int maxEnergy = energy.getFutureEnergy() + currentEnergy;
 		System.out.println("Current energy: " + currentEnergy);
