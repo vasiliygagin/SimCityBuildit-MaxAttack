@@ -21,23 +21,25 @@ public class MaxAttack {
 		if (vasiliy) {
 			availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay,
 					AttackCard.GiantRockMonster, AttackCard.TentacleVortex, AttackCard.FlyingVuRobot,
-					AttackCard.DiscoTwister, AttackCard.PlantMonster, AttackCard.SixteenTons };
+					AttackCard.DiscoTwister, AttackCard.PlantMonster, AttackCard.SixteenTons,
+					AttackCard.BuildingPortal };
 			useOnlyEnergyEfficientCards = true;
 
-			warStart = parse("12/02/2017 05:37");
-			usedEnergy = 0;
+			warStart = parse("12/16/2017 05:07");
+			usedEnergy = 9;
 
-			stock.set(WarItem.RubberBoots, 20);
-			stock.set(WarItem.Megaphone, 17);
-			stock.set(WarItem.Anvil, 16);
-			stock.set(WarItem.Pliers, 15);
-			stock.set(WarItem.Binoculars, 14);
-			stock.set(WarItem.FireHydrant, 10);
-			stock.set(WarItem.Propeller, 10);
-			stock.set(WarItem.Ammo, 8);
-			stock.set(WarItem.Gasolline, 6);
-			stock.set(WarItem.RubberDuck, 6);
-			stock.set(WarItem.Plunger, 3);
+			stock.set(WarItem.RubberBoots, 21);
+			stock.set(WarItem.Binoculars, 17);
+
+			stock.set(WarItem.Propeller, 22);
+			stock.set(WarItem.Ammo, 15);
+			stock.set(WarItem.Anvil, 12);
+			stock.set(WarItem.Gasolline, 10);
+			stock.set(WarItem.Megaphone, 10);
+			stock.set(WarItem.Pliers, 8);
+			stock.set(WarItem.RubberDuck, 7);
+			stock.set(WarItem.Plunger, 6);
+			stock.set(WarItem.FireHydrant, 2);
 
 		} else {
 			availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.TentacleVortex,
@@ -139,7 +141,7 @@ public class MaxAttack {
 			int itemQuantity = leftoverStock.getQuantity(warItem);
 			for (AttackCard attackCard : availableAttacks) {
 				int cardItemQuantity = attackCard.warItemQuantities.getQuantity(warItem);
-				if (cardItemQuantity > 0 && (itemQuantity < cardItemQuantity || itemQuantity < 4)) {
+				if (cardItemQuantity > 0 && (itemQuantity < cardItemQuantity * 3)) {
 					neededItems.add(warItem);
 					break;
 				}
