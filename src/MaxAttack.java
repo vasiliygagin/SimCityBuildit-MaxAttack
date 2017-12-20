@@ -25,21 +25,21 @@ public class MaxAttack {
 					AttackCard.BuildingPortal };
 			useOnlyEnergyEfficientCards = true;
 
-			warStart = parse("12/16/2017 05:07");
-			usedEnergy = 9;
+			warStart = parse("12/19/2017 10:54");
+			usedEnergy = 130;//51;
 
-			stock.set(WarItem.RubberBoots, 21);
-			stock.set(WarItem.Binoculars, 17);
+			stock.set(WarItem.Binoculars, 15);
+			stock.set(WarItem.RubberBoots, 12);
 
-			stock.set(WarItem.Propeller, 22);
-			stock.set(WarItem.Ammo, 15);
-			stock.set(WarItem.Anvil, 12);
-			stock.set(WarItem.Gasolline, 10);
-			stock.set(WarItem.Megaphone, 10);
-			stock.set(WarItem.Pliers, 8);
+			stock.set(WarItem.Anvil, 24);
+			stock.set(WarItem.Propeller, 21);
+			stock.set(WarItem.Ammo, 13);
+			stock.set(WarItem.Megaphone, 12);
+			stock.set(WarItem.Pliers, 10);
+			stock.set(WarItem.Gasolline, 8);
 			stock.set(WarItem.RubberDuck, 7);
-			stock.set(WarItem.Plunger, 6);
-			stock.set(WarItem.FireHydrant, 2);
+			stock.set(WarItem.Plunger, 5);
+			stock.set(WarItem.FireHydrant, 3);
 
 		} else {
 			availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.TentacleVortex,
@@ -74,7 +74,7 @@ public class MaxAttack {
 
 		System.out.println("                  " + consiseDamageHeader());
 		System.out.println(
-				"Initial war items:                                                    " + consiseWarItemStock(stock));
+				"Initial war items:                                                          " + consiseWarItemStock(stock));
 		Damage maxDamage = calcMaxDamage(availableAttacks, stock, 0, Integer.MAX_VALUE);
 		System.out.println("Unlimited energy: " + consiseDamageReport(maxDamage));
 		Damage maxEfficientDamage = calcMaxDamage(energyEfficientCards, stock, 0, Integer.MAX_VALUE);
@@ -96,7 +96,7 @@ public class MaxAttack {
 		System.out.println("Total damage:     " + consiseDamageReport(totalDamage));
 
 		WarItemStock leftoverStock = stock.remove(totalDamage.cost);
-		System.out.println("Leftover war items:                                                   "
+		System.out.println("Leftover war items:                                                         "
 				+ consiseWarItemStock(leftoverStock));
 		printNeededItems(leftoverStock, cardsToUse);
 
@@ -174,7 +174,7 @@ public class MaxAttack {
 	}
 
 	private static String consiseDamageHeader() {
-		return "Dmg Point Eng  CH SR GR NK TV FR DT PM Fi AC 16 Sp  Pg RD Pl Mg FH Bi An Pr Am Ga RB";
+		return "Dmg Point Eng  CH SR GR NK Ma TV FR DT PM Fi AC 16 Sp BP  Pg RD Pl Mg FH Bi An Pr Am Ga RB";
 	}
 
 	private static CharSequence consiseDamageReport(Damage damage) {
@@ -192,13 +192,14 @@ public class MaxAttack {
 				cardQuantities.put(attackCard, numberOfCards);
 			}
 
-			f.format("%3d %5d %3d  %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d  ", //
+			f.format("%3d %5d %3d  %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d  ", //
 					damage.damage, damage.points, //
 					damage.energy, //
 					cardQuantities.get(AttackCard.ComicHand), //
 					cardQuantities.get(AttackCard.ShrinkRay), //
 					cardQuantities.get(AttackCard.GiantRockMonster), //
 					cardQuantities.get(AttackCard.NotInKansas), //
+					cardQuantities.get(AttackCard.Magnetism), //
 					cardQuantities.get(AttackCard.TentacleVortex), //
 					cardQuantities.get(AttackCard.FlyingVuRobot), //
 					cardQuantities.get(AttackCard.DiscoTwister), //
@@ -206,7 +207,8 @@ public class MaxAttack {
 					cardQuantities.get(AttackCard.Fishaster), //
 					cardQuantities.get(AttackCard.AncientCurse), //
 					cardQuantities.get(AttackCard.SixteenTons), //
-					cardQuantities.get(AttackCard.Spiders) //
+					cardQuantities.get(AttackCard.Spiders), //
+					cardQuantities.get(AttackCard.BuildingPortal) //
 			);
 		}
 		sb.append(consiseWarItemStock(damage.cost));
