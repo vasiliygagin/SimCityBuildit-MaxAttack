@@ -25,20 +25,20 @@ public class MaxAttack {
             useOnlyEnergyEfficientCards = true;
 
             warStart = parse("12/19/2017 10:54");
-            usedEnergy = 100;
+            usedEnergy = 134;
 
-            stock.set(WarItem.Binoculars, 11);
-            stock.set(WarItem.RubberBoots, 9);
+            stock.set(WarItem.Binoculars, 12);
+            stock.set(WarItem.RubberBoots, 12);
 
-            stock.set(WarItem.Anvil, 26);
-            stock.set(WarItem.Megaphone, 14);
-            stock.set(WarItem.Pliers, 14);
-            stock.set(WarItem.Propeller, 14);
-            stock.set(WarItem.RubberDuck, 10);
-            stock.set(WarItem.Ammo, 8);
-            stock.set(WarItem.FireHydrant, 4);
-            stock.set(WarItem.Gasolline, 3);
+            stock.set(WarItem.Anvil, 28);
+            stock.set(WarItem.Megaphone, 22);
+            stock.set(WarItem.Pliers, 17);
+            stock.set(WarItem.RubberDuck, 12);
+            stock.set(WarItem.Propeller, 7);
+            stock.set(WarItem.Ammo, 6);
+            stock.set(WarItem.Gasolline, 5);
             stock.set(WarItem.Plunger, 2);
+            stock.set(WarItem.FireHydrant, 4);
 
         } else {
             availableAttacks = new AttackCard[] { AttackCard.ComicHand, AttackCard.ShrinkRay, AttackCard.TentacleVortex, AttackCard.PlantMonster,
@@ -72,7 +72,7 @@ public class MaxAttack {
         AttackCard[] cardsToUse = useOnlyEnergyEfficientCards ? energyEfficientCards : availableAttacks;
 
         System.out.println("                  " + consiseDamageHeader(availableAttacks));
-        System.out.println("Initial war items:                                                          " + consiseWarItemStock(stock));
+        System.out.println("Initial war items:                                           " + consiseWarItemStock(stock));
         Damage maxDamage = calcMaxDamage(availableAttacks, stock, 0, Integer.MAX_VALUE);
         System.out.println("Unlimited energy: " + consiseDamageReport(maxDamage, availableAttacks));
         Damage maxEfficientDamage = calcMaxDamage(energyEfficientCards, stock, 0, Integer.MAX_VALUE);
@@ -94,7 +94,7 @@ public class MaxAttack {
         System.out.println("Total damage:     " + consiseDamageReport(totalDamage, availableAttacks));
 
         WarItemStock leftoverStock = stock.remove(totalDamage.cost);
-        System.out.println("Leftover war items:                                                         " + consiseWarItemStock(leftoverStock));
+        System.out.println("Leftover war items:                                          " + consiseWarItemStock(leftoverStock));
         printNeededItems(leftoverStock, cardsToUse);
 
         int maxUsableEnergy = analyseLimitedEnerg(stock, cardsToUse, maxDamage);
